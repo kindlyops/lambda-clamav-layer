@@ -17,14 +17,10 @@ To inspect the contents of the zipfile, run
 For convenience, a prebuilt zip is published as a github release for this
 project, you can download it from the releases page.
 
-To publish the lambda layer, first upload it to S3 using a command like this:
-
-    aws s3 cp build/lambda_layer.zip s3://<BUCKET-NAME>/clamavlayer.zip
-
 Then create a layer version, specifying the zip file:
 
     aws lambda publish-layer-version --layer-name clamav-antivirus \
-        --content S3Bucket=<BUCKET-NAME>,S3Key=clamavlayer.zip
+        --zip-file fileb://build/lambda_layer.zip
 
 To grant permissions to all accounts inside your organization to use the layer,
 use these commands.
