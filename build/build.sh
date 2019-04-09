@@ -21,6 +21,10 @@ rpm2cpio clamav-lib*.rpm | cpio -vimd
 rpm2cpio clamav-update*.rpm | cpio -vimd
 rpm2cpio json-c*.rpm | cpio -vimd
 rpm2cpio pcre*.rpm | cpio -vimd
+# reset the timestamps so that we generate a reproducible zip file where
+# running with the same file contents we get the exact same hash even if we
+# run the same build on different days
+find usr -exec touch -t 200001010000 "{}" \;
 popd
 
 mkdir -p bin
