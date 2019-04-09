@@ -4,6 +4,10 @@ set -e
 
 echo "prepping clamav"
 
+rm -rf bin
+rm -rf lib
+rm lambda_layer.zip
+
 yum update -y
 amazon-linux-extras install epel -y
 yum install -y cpio yum-utils zip
