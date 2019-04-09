@@ -1,0 +1,8 @@
+version: '2'
+services:
+  layer:
+    image: amazonlinux:2
+    working_dir: /opt/app
+    volumes:
+      - ./build:/opt/app
+    command: [./build.sh]
