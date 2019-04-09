@@ -20,8 +20,11 @@ rpm2cpio pcre*.rpm | cpio -vimd
 popd
 
 mkdir -p bin
+mkdir -p lib
 
-cp /tmp/build/usr/bin/clamscan /tmp/build/usr/bin/freshclam /tmp/build/usr/lib64/* bin/.
+cp /tmp/build/usr/bin/clamscan /tmp/build/usr/bin/freshclam bin/.
+cp /tmp/build/usr/lib64/* lib/.
 cp freshclam.conf bin/freshclam.conf
 
 zip -r9 /opt/app/lambda_layer.zip bin
+zip -r9 /opt/app/lambda_layer.zip lib
