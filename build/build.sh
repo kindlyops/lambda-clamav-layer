@@ -6,7 +6,7 @@ echo "prepping clamav"
 
 rm -rf bin
 rm -rf lib
-rm lambda_layer.zip
+rm lambda_layer.zip || true
 
 yum update -y
 amazon-linux-extras install epel -y
