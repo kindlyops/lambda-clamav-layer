@@ -17,7 +17,7 @@ mkdir -p /tmp/build
 pushd /tmp/build
 
 # Download the clamav package that includes unrar
-curl -L --output clamav-0.102.4-14050.el7.art.x86_64.rpm http://www6.atomicorp.com/channels/atomic/centos/7/x86_64/RPMS/clamav-0.102.4-14050.el7.art.x86_64.rpm
+curl -L --output clamav-0.102.4-14050.el7.art.x86_64.rpm https://www6.atomicorp.com/channels/atomic/centos/7/x86_64/RPMS/clamav-0.102.4-14050.el7.art.x86_64.rpm
 rpm2cpio clamav-0*.rpm | cpio -vimd
 
 # Download libcrypt.so.1
