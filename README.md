@@ -1,16 +1,20 @@
 # lambda-clamav-layer
-an AWS Lambda Layer with clamav binaries
 
+An AWS Lambda Layer with `clamav` binaries
 
 ## building a fresh layer
 
 To generate the layer, run
 
-    dockerbuild.sh
+```shell
+make build
+```
 
-To inspect the contents of the zipfile, run
+To inspect the contents of the zip file, run
 
-    unzip -vl build/lambda_layer.zip
+```shell
+unzip -vl build/lambda_layer.zip
+```
 
 ## Publishing the layer to your AWS environment
 
@@ -19,22 +23,30 @@ project, you can download it from the releases page.
 
 Then create a layer version, specifying the zip file:
 
-    aws lambda publish-layer-version --layer-name clamav-antivirus \
-        --zip-file fileb://build/lambda_layer.zip
+```shell
+make publish
+
+# specifying the region (default: us-west-1)
+make publish REGION=ap-southeast-2
+```
 
 To grant permissions to all accounts inside your organization to use the layer,
 use these commands.
 
 First, find your organization ID:
 
-    aws organizations describe-organization
+```shell
+aws organizations describe-organization
+```
 
 Next, add a permission grant for this organization:
 
-    aws lambda add-layer-version-permission \
-        --layer-name clamav-antivirus \
-        --version-number 1 \
-        --statement-id allOrganizationAccounts \
-        --principal '*' \
-        --action lambda:GetLayerVersion \
-        --organization-id o-NNN
+```shell
+aws lambda add-layer-version-permission \
+    --layer-name clamav-antivirus \
+    --version-number 1 \
+    --statement-id allOrganizationAccounts \
+    --principal '*' \
+    --action lambda:GetLayerVersion \
+    --organization-id o-NNN
+```
