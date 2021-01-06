@@ -15,6 +15,13 @@ build: clean
 		/bin/bash -c "cd /opt/app && ./build.sh"
 .PHONY: build
 
+test-node12:
+	docker run -it --rm \
+		-v `pwd`/build:/opt:ro,delegated \
+		lambci/lambda:build-nodejs12.x \
+		bash
+.PHONY: test-node12
+
 publish: build/lambda_layer.zip
 	aws lambda publish-layer-version \
 		--region $(REGION) \
