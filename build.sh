@@ -4,10 +4,6 @@ set -e
 
 echo "prepping clamav"
 
-rm -rf bin
-rm -rf lib
-rm lambda_layer.zip || true
-
 yum update -y
 amazon-linux-extras install epel -y
 yum install -y cpio yum-utils zip
@@ -17,11 +13,12 @@ mkdir -p /tmp/build
 pushd /tmp/build
 
 # Download the clamav package that includes unrar
-curl -L --output clamav-0.102.4-14050.el7.art.x86_64.rpm https://www6.atomicorp.com/channels/atomic/centos/7/x86_64/RPMS/clamav-0.102.4-14050.el7.art.x86_64.rpm
+curl -L --output clamav-0.103.0-15683.el7.art.x86_64.rpm https://www6.atomicorp.com/channels/atomic/centos/7/x86_64/RPMS/clamav-0.103.0-15683.el7.art.x86_64.rpm
 rpm2cpio clamav-0*.rpm | cpio -vimd
 
-# Download libcrypt.so.1
-curl -L --output glibc-2.17-307.el7.1.x86_64.rpm http://mirror.centos.org/centos-7/7/os/x86_64/Packages/glibc-2.17-317.el7.x86_64.rpm
+# Download required glibc libs
+curl -L --output glibc-2.17-317.el7.x86_64.rpm https://www.rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/glibc-2.17-317.el7.x86_64.rpm
+curl -L --output glibc-2.28-127.el8.x86_64.rpm https://www.rpmfind.net/linux/centos/8.3.2011/BaseOS/x86_64/os/Packages/glibc-2.28-127.el8.x86_64.rpm
 rpm2cpio glibc*.rpm | cpio -vimd
 
 # Download other package dependencies
@@ -59,8 +56,7 @@ rpm2cpio libcrypt*.rpm | cpio -vimd
 find usr -exec touch -t 200001010000 "{}" \;
 popd
 
-mkdir -p bin
-mkdir -p lib
+mkdir -p bin lib
 
 cp /tmp/build/usr/bin/clamscan /tmp/build/usr/bin/freshclam bin/.
 cp -R /tmp/build/usr/lib64/* lib/.
