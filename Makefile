@@ -9,7 +9,7 @@ clean:
 .PHONY: clean
 
 build: clean
-	docker run --rm -ti \
+	docker run --rm \
 		-v `pwd`/build:/opt/app:Z \
 		amazonlinux:2 \
 		/bin/bash -c "cd /opt/app && ./build.sh"
