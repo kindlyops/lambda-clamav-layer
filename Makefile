@@ -10,14 +10,14 @@ clean:
 
 build: clean
 	docker run --rm -ti \
-		-v `pwd`/build:/opt/app \
+		-v `pwd`/build:/opt/app:Z \
 		amazonlinux:2 \
 		/bin/bash -c "cd /opt/app && ./build.sh"
 .PHONY: build
 
 test-node12:
 	docker run -it --rm \
-		-v `pwd`/build:/opt:ro,delegated \
+		-v `pwd`/build:/opt:ro,delegated,Z \
 		lambci/lambda:build-nodejs12.x \
 		bash
 .PHONY: test-node12
