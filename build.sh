@@ -2,7 +2,8 @@
 
 set -e
 
-echo "prepping clamav"
+VERSION=${VERSION:-0.103.1-17354}
+echo "prepping clamav (${VERSION})"
 
 yum update -y
 amazon-linux-extras install epel -y
@@ -13,8 +14,8 @@ mkdir -p /tmp/build
 pushd /tmp/build
 
 # Download the clamav package that includes unrar
-curl -L --output clamav-0.103.0-15683.el7.art.x86_64.rpm https://www6.atomicorp.com/channels/atomic/centos/7/x86_64/RPMS/clamav-0.103.0-15683.el7.art.x86_64.rpm
-rpm2cpio clamav-0*.rpm | cpio -vimd
+curl -L --output clamav.rpm "https://www6.atomicorp.com/channels/atomic/centos/7/x86_64/RPMS/clamav-${VERSION}.el7.art.x86_64.rpm"
+rpm2cpio clamav.rpm | cpio -vimd
 
 # Download required glibc libs
 curl -L --output glibc-2.17-317.el7.x86_64.rpm https://www.rpmfind.net/linux/centos/7.9.2009/os/x86_64/Packages/glibc-2.17-317.el7.x86_64.rpm
