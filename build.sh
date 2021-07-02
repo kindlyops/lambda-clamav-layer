@@ -2,7 +2,7 @@
 
 set -e
 
-VERSION=${VERSION:-0.103.1-17354}
+VERSION=${VERSION:-0.103.3-22187}
 echo "prepping clamav (${VERSION})"
 
 yum update -y
